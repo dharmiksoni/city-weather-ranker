@@ -1,12 +1,5 @@
 import axios from "axios";
-
-interface GeocodingResult {
-    name: string;
-    latitude: string;
-    longitude: string;
-    country: string;
-    timezone: string;
-}
+import {GeocodingResult } from "../interfaces";
 
 export async function geocodeCity(city: string): Promise<GeocodingResult | null> {
     try {
