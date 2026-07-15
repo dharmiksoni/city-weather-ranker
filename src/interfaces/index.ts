@@ -1,7 +1,7 @@
 export interface GeocodingResult {
     name: string;
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
     country: string;
     timezone: string;
 }
@@ -13,4 +13,13 @@ export interface DailyForecast {
     precipitation: number;
     windSpeed: number;
     weatherCode: number;
+}
+
+export interface StoredCity {
+  id: number;
+  name: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  timezone: string;
 }
