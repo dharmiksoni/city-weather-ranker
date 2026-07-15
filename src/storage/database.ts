@@ -32,26 +32,43 @@ db.exec(`
     );
 `)
 
+// fetch saved city
 export function getStoredCity(name: string): StoredCity | undefined {
     const cityResult = db.prepare('SELECT * FROM cities WHERE name=?').get(name) as StoredCity | undefined;
     return cityResult;
 }
 
+// save city details
 export function storeCity(name: string, country: string, latitude: number, longitude: number, timezone: string): StoredCity {
     const resp = db.prepare('INSERT OR IGNORE INTO cities (name, country, latitude, longitude, timezone) VALUES(?,?,?,?,?)')
     resp.run(name, country, latitude, longitude, timezone);
     return getStoredCity(name)!;
 }
 
+// get stored forecasts data from db
 export function getStoredForecast(cityId: number): any[] {
-    const cityResult = db.prepare('SELECT * FROM forecasts WHERE city_id=? ORDER BY date').all(cityId)
-    return cityResult;
+    const forecastResult = db.prepare('SELECT * FROM forecasts WHERE city_id=? ORDER BY date').all(cityId)
+    return forecastResult;
 }
 
-// export function storedForecast() {
+// store forecasts data by cityId
+export function storedForecast(cityId: number, forecasts: any[]): void {
+    const forecastSingle = db.prepare('INSERT OR REPLACE INTO forecasts(city_id, date, temperature_max, temperature_min, precipitation, wind_speed, whether_code) VALUES(?,?,?,?,?,?,?)')
+    const saveManyForecasts = db.transaction((items: any[]) => {
+        for(const item of items) {
+            forecastSingle.run(cityId, item.date, item.temperatureMax, item.temperatureMin, item.precipitation, item.windSpeed, item.weatherCode);
+        }
+    })
+    saveManyForecasts(forecasts);
+}
 
-// }
+// checks if data is older than 6 hours
+export function isForecastStale(cityId: number, maxAgeOfRecordInHours: number = 6): boolean {
+    const row = db.prepare("SELECT updated_at FROM forecasts WHERE city_id=? ORDER BY updated_at DESC LIMIT 1").get(cityId) as any;
+    if(!row) return true;
 
-// export function isForecastStale() {
-
-// }
+    const updatedAt = new Date(row.updated_at);
+    const now = new Date();
+    const hourDiff = (now.getTime()-updatedAt.getTime())/(1000*60*60);
+    return hourDiff > maxAgeOfRecordInHours;
+}
