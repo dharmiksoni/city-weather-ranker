@@ -128,7 +128,7 @@ function scoreIndoorSeen (forecast: DailyForecast): ActivityScore {
     }
 
     // temperature check
-    if(forecast.temperatureMax > 0) {
+    if(forecast.temperatureMax < 0) {
         score = score + 3;
         reason.push('freezing cold, stay indoor'); 
     } else if (forecast.temperatureMax > 35) {

@@ -1,15 +1,6 @@
 .yarn
 .DS_Store
-.log/
-.idea
 package-lock.json
 node_modules/
-build/
-storybook-static/
-/coverage/
-/test-reports/
-svg
-.yarn
 .vscode
-.husky
 weather.db

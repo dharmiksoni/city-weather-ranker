@@ -1,15 +1,14 @@
-import axios from "axios";
 import {GeocodingResult } from "../interfaces";
+import { fetchWithRetry} from "./fetchWithRetry";
 
 export async function geocodeCity(city: string): Promise<GeocodingResult | null> {
     try {
-        const resp = await axios.get('https://geocoding-api.open-meteo.com/v1/search', {
-            params: {
+        const resp = await fetchWithRetry('https://geocoding-api.open-meteo.com/v1/search', {
                 name: city,
                 count: 1,
                 language: 'en'
             }
-        })
+        )
         if(!resp || !resp.data.results || resp.data.results.length === 0) {
             return null;
         }
