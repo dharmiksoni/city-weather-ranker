@@ -1,4 +1,4 @@
-# City Wemther Ranker
+# City weather Ranker
 
 Ranks next 7 days for skiing, surfing, outdoor/indoor sightseeing.
 
