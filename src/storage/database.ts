@@ -47,13 +47,20 @@ export function storeCity(name: string, country: string, latitude: number, longi
 
 // get stored forecasts data from db
 export function getStoredForecast(cityId: number): any[] {
-    const forecastResult = db.prepare('SELECT * FROM forecasts WHERE city_id=? ORDER BY date').all(cityId)
-    return forecastResult;
+    const forecastResult = db.prepare('SELECT * FROM forecasts WHERE city_id=? ORDER BY date').all(cityId) as any[];
+    return forecastResult.map(row => ({
+        date: row.date,
+        temperatureMax: row.temperature_max,
+        temperatureMin: row.temperature_min,
+        precipitation: row.precipitation,
+        windSpeed: row.wind_speed,
+        weatherCode: row.weather_code,
+    }));
 }
 
 // store forecasts data by cityId
 export function storedForecast(cityId: number, forecasts: any[]): void {
-    const forecastSingle = db.prepare('INSERT OR REPLACE INTO forecasts(city_id, date, temperature_max, temperature_min, precipitation, wind_speed, whether_code) VALUES(?,?,?,?,?,?,?)')
+    const forecastSingle = db.prepare('INSERT OR REPLACE INTO forecasts(city_id, date, temperature_max, temperature_min, precipitation, wind_speed, weather_code) VALUES(?,?,?,?,?,?,?)')
     const saveManyForecasts = db.transaction((items: any[]) => {
         for(const item of items) {
             forecastSingle.run(cityId, item.date, item.temperatureMax, item.temperatureMin, item.precipitation, item.windSpeed, item.weatherCode);

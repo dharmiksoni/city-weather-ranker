@@ -23,3 +23,9 @@ export interface StoredCity {
   longitude: number;
   timezone: string;
 }
+
+export interface ActivityScore {
+  activity: string;
+  score: number;
+  reason: string;
+}

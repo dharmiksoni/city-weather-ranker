@@ -14,7 +14,6 @@ export async function fetchWeatherForecast (latitude: number, longitude: number)
         });
         const daily = resp.data.daily;
         const forecasts: DailyForecast[] = [];
-        // console.log(daily);
         for (let i = 0;i<daily.time.length;i++) {
             forecasts.push({
                 date: daily.time[i],

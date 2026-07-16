@@ -27,29 +27,12 @@ export const typeDefs = `#graphql
     type CityWeatherRanking {
         city: String!
         country: String!
-        lat: Float
-        long: Float
+        latitude: Float
+        longitude: Float
         rankings: [DayRanking!]!
         forecast: [DayForecast!]!
     }
-    type GeoResult {
-        name: String
-        latitude: Float
-        longitude: Float
-        country: String
-        timezone: String
-    }
-    type WeatherResult {
-        date: String
-        temperatureMax: Float
-        temperatureMin: Float
-        precipitation: Float
-        windSpeed: Float
-        weatherCode: Int
-    }
     type Query {
         getCityRankings(city: String!): CityWeatherRanking
-        testGeocoding(city: String!): GeoResult
-        testDailyWeather(latitude: Float!, longitude: Float!): [WeatherResult]
     }
 `;
