@@ -3,9 +3,9 @@
 Ranks next 7 days for skiing, surfing, outdoor/indoor sightseeing.
 
 ## How to run
-npm install
-npx tsx src/index.ts
-Open http://localhost:4000/graphql
+- npm install
+- npx tsx src/index.ts
+- Open http://localhost:4000/graphql
 
 ## Assumptions
 - SQLite for storage (no external DB or Docker needed)
