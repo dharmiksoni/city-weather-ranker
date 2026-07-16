@@ -25,7 +25,7 @@ curl --location 'http://localhost:4000/graphql' \
 --data '{"query":"query {\n  getCityRankings(city: \"São Paulo\") {\n    city,\n    country,\n    latitude,\n    longitude,\n    rankings {\n      date\n      scores {\n        activity\n        score\n        reason\n      }\n    },\n    forecast {\n      date,\n      precipitation,\n      temperatureMax,\n      temperatureMin,\n      windSpeed,\n      weatherCode,\n    }\n  }\n}","variables":{}}'
 
 ## Architecture
-Provided Mermaid Flowchart diagram
+[mermaid-diagram-2026-07-16-125409.png](mermaid-diagram-2026-07-16-125409.png)
 
 ## Tech stack
 
