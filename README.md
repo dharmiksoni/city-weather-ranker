@@ -20,10 +20,32 @@ Open http://localhost:4000/graphql
 - Server serves stale data if API is unavailable
 
 ## Example query
-curl --location 'http://localhost:4000/graphql' \
---header 'content-type: application/json' \
---data '{"query":"query {\n  getCityRankings(city: \"São Paulo\") {\n    city,\n    country,\n    latitude,\n    longitude,\n    rankings {\n      date\n      scores {\n        activity\n        score\n        reason\n      }\n    },\n    forecast {\n      date,\n      precipitation,\n      temperatureMax,\n      temperatureMin,\n      windSpeed,\n      weatherCode,\n    }\n  }\n}","variables":{}}'
-
+```graphql
+query {
+  getCityRankings(city: "Mumbai") {
+    city
+    country
+    latitude
+    longitude
+    rankings {
+      date
+      scores {
+        activity
+        score
+        reason
+      }
+    }
+    forecast {
+      date
+      temperatureMax
+      temperatureMin
+      precipitation
+      windSpeed
+      weatherCode
+    }
+  }
+}
+```
 ## Architecture
 [mermaid-diagram-2026-07-16-125409.png](mermaid-diagram-2026-07-16-125409.png)
 
